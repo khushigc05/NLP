@@ -1,12 +1,12 @@
  3. Self-Attention – The Core Idea
-🧠 What is Attention?
+ What is Attention?
 It’s like when you read a sentence and focus more on the important words.
-📚 Real-Life Example:
+Real-Life Example:
 “The girl with the red dress won the prize.”
 While reading, your brain knows “girl” and “won” are connected, even if “red dress” is in the middle.
 Self-Attention allows the model to look at all words and decide which ones to pay attention to.
 
-📦 Steps in Self-Attention:
+ Steps in Self-Attention:
 The input is turned into 3 things:
 Query (Q): What we’re looking for
 Key (K): The label
@@ -15,7 +15,7 @@ The model compares Q with K, scores how important each word is.
 It applies softmax (to get % importance).
 It then uses that to multiply with V and get the final result.
 
-🧠 The Self-Attention Steps (Using YouTube Analogy):
+The Self-Attention Steps (Using YouTube Analogy):
 
 Step 1: Turn Input into Q, K, V
 Every word in a sentence is turned into 3 vectors (lists of numbers):
@@ -65,17 +65,17 @@ This vector represents the meaning of the word "delicious" in this sentence, aft
 It contains mostly information from “cake” and “sweet”.
 It ignores words like “The” and “and”.
 ----------------------------------------------------------------------------------
-🧠 4. Multi-Head Attention – Multiple Brains
+ 4. Multi-Head Attention – Multiple Brains
 Why one attention head? Why not 8?
 Each head looks at a sentence differently:
 One looks at grammar
 One looks at meaning
 One looks at name matching
 This is called Multi-Head Attention.
-🎨 Real-Life Example:
+ Real-Life Example:
 It’s like multiple people reading the same paragraph and each one giving you a summary.
 ----------------------------------------------------------------------------------
-🧮 5. Feed-Forward Neural Network (FFN)
+ 5. Feed-Forward Neural Network (FFN)
 After attention, we pass the output (important words that we got after self attention) through another small neural network (FFN). feed forward network
 It works on each word individually, applies some math, and makes the final representation smarter.
 While self-attention handles interactions between tokens, the FFN helps with processing each token individually.
@@ -95,11 +95,11 @@ This design is called an inverted bottleneck since the hidden layer is larger th
 This stabilizes the learning process.
 Imagine a teacher grading 100 students. Without normalization, one very high or low mark may confuse the teacher. LayerNorm ensures each word’s representation is balanced.
 ---------------------------------------------------------------------------------
-🧱 7. Transformer Block
+ 7. Transformer Block
 All of this (multi-head attention + FFN + LayerNorm) is one Transformer Block. We stack many such blocks on top of each other to create a deep, smart model.
 ----------------------------------------------------------------------------------
-✅ Q1. What are the key differences between Recurrent Neural Networks (RNNs) and Transformers?
-🔄 RNNs:
+Q1. What are the key differences between Recurrent Neural Networks (RNNs) and Transformers?
+ RNNs:
 Read text one word at a time (sequentially).
 Remember previous words using memory.
 Slow because it processes word-by-word.
@@ -111,41 +111,41 @@ Read all words at once (parallel).
 Use self-attention to focus on important words.
 Much faster and better at remembering long-range connections.
 Better suited for modern NLP tasks.
-🧠 Example: Reading an entire sentence in one glance and instantly understanding which words are important.
+ Example: Reading an entire sentence in one glance and instantly understanding which words are important.
 ----------------------------------------------------------------------------------✅ Q2. Describe the architecture of a Transformer model.
-🔸 What are the roles of the encoder and decoder?
-🏗️ Transformer Architecture has two main parts:
-🔷 1. Encoder:
+What are the roles of the encoder and decoder?
+Transformer Architecture has two main parts:
+1. Encoder:
 Reads the input sentence (like “Translate this sentence”).
 Breaks it into tokens → turns them into embeddings → adds position info.
 Applies self-attention to understand context.
 Outputs a rich representation of the input.
-🧠 Example: You say: “Translate: I am happy” The encoder understands the full meaning of this sentence.
+ Example: You say: “Translate: I am happy” The encoder understands the full meaning of this sentence.
 
-🔶 2. Decoder:
+ 2. Decoder:
 Takes the encoder’s output and generates new text, one word at a time.
 Also uses self-attention, but with masking to avoid looking ahead.
 Used for text generation like translation, summarization, etc.
-🧠 Example: The decoder uses what the encoder understood to write: “Je suis heureux” (in French)
+ Example: The decoder uses what the encoder understood to write: “Je suis heureux” (in French)
 
-🧱 Components Used in Both:
+ Components Used in Both:
 Positional Encoding – Adds order to words.
 Multi-Head Attention – Looks at input from different angles.
 Feed-Forward Layers – Makes smarter representations.
 Layer Norm + Skip Connections – Keeps learning stable.
-🔒 What is Attention Masking?
+ What is Attention Masking?
 Attention Masking is a trick used in text generation to prevent the model from "looking ahead" at future words.
 
-🧐 What does "Looking Ahead" mean?
+ What does "Looking Ahead" mean?
 Imagine you’re writing a sentence one word at a time, like:
 “The cat sat on the ___”
 The model should only use the previous words (“The cat sat on the”) to guess the next word, not peek at the correct answer (“mat”).
 
-🛡️ How Masking Works:
+ How Masking Works:
 A mask hides future words by setting their attention scores to -∞ (or 0 after softmax), so they don’t affect the result.
 The model can only attend to itself and earlier words, not what's next.
 
-📘 Example:
+ Example:
 Word             Can Look At
 Word 1          Word 1
 Word 2          Word 1, Word 2
